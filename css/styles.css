@@ -1,0 +1,128 @@
+:root {
+    --light-blue: rgb(189, 205, 214);
+    --med-blue: rgb(139, 167, 183);
+    --dark-blue: rgb(63, 88, 102);
+    --text-color: black;
+    --linear-gradient-bg: linear-gradient(to bottom right,
+            var(--light-blue) 25%,
+            var(--med-blue));
+    --border-radius: 5px
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: var(--text-color);
+    user-select: none;
+}
+
+body {
+    background: var(--med-blue);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--text-color);
+    text-shadow: 0 0 15px var(--light-blue), 0 0 5px var(--light-blue);
+}
+
+#card-canvas {
+    box-shadow: 0 0 20px var(--dark-blue);
+
+    background: var(--linear-gradient-bg);
+
+    border: 1px solid black;
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-evenly;
+    align-items: center;
+
+    min-height: 200px;
+    width: 250px;
+}
+
+.cards {
+    background: var(--linear-gradient-bg);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    width: 50px;
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-size: 20px;
+}
+
+.hidden {
+    cursor: pointer;
+}
+
+.selected {}
+
+.solved {
+    background: var(--dark-blue);
+    color: var(--light-blue);
+}
+
+.cards.hidden:hover,
+.selected,
+.buttons:hover {
+    transform: scale(1.025);
+    box-shadow: 5px 5px 15px var(--dark-blue);
+    background: var(--linear-gradient-bg);
+}
+
+.buttons {
+    border: 1px solid var(--dark-blue);
+    border-radius: var(--border-radius);
+    width: 75px;
+    height: 25px;
+    background: var(--linear-gradient-bg);
+    box-shadow: 0 0 20px var(--dark-blue);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#result {
+    height: 100px;
+    width: 300px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(225, 225, 225, .75);
+
+    font-size: 3rem;
+    color: var(--dark-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px dashed var(--dark-blue);
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    width: 250px;
+}
+
+.reset {
+    transform: scale(1.1);
+}
