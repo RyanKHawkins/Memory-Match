@@ -4,15 +4,24 @@
     https://codepen.io/RyanKHawkins/pen/gOdRWrJ
 
 */
+import * as Card from "./cards.js"
 const cards = Array.from(document.querySelectorAll(".cards"));
 const resultDisplay = document.querySelector("#result");
 const shuffleButton = document.querySelector("#shuffle-button");
+
+isTesting = true;
+function testLog(log) {
+    if (isTesting) {
+        console.log(log);
+    }
+}
 
 
 shuffleButton.addEventListener("click", shuffleCards);
 resultDisplay.addEventListener("click", () => {
     resultDisplay.style.visibility = "hidden"
 });
+
 
 
 function shuffleArray(array, times = 2) {
