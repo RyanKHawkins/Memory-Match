@@ -9,7 +9,7 @@ const cards = Array.from(document.querySelectorAll(".cards"));
 const resultDisplay = document.querySelector("#result");
 const shuffleButton = document.querySelector("#shuffle-button");
 
-isTesting = true;
+let isTesting = true;
 function testLog(log) {
     if (isTesting) {
         console.log(log);
