@@ -5,9 +5,8 @@
 
 */
 import * as Card from "./cards.js"
-const cards = Array.from(document.querySelectorAll(".cards"));
 const resultDisplay = document.querySelector("#result");
-const shuffleButton = document.querySelector("#shuffle-button");
+export const shuffleButton = document.querySelector("#shuffle-button");
 
 let isTesting = true;
 function testLog(log) {
@@ -17,49 +16,11 @@ function testLog(log) {
 }
 
 
-shuffleButton.addEventListener("click", shuffleCards);
+shuffleButton.addEventListener("click", Card.shuffleCards);
 resultDisplay.addEventListener("click", () => {
     resultDisplay.style.visibility = "hidden"
 });
 
-
-
-function shuffleArray(array, times = 2) {
-    for (let i = 0; i < times; i++) {
-        array = array.sort((a, b) => Math.random() - 0.5);
-    }
-    return array
-}
-
-function shuffleCards() {
-    cards.forEach((card) =>
-        card.addEventListener("click", (e) => {
-            selectCard(e.target);
-        })
-    );
-    cards.forEach((card) => (card.classList = "cards hidden"));
-    cards.forEach((card) => (card.innerText = ""));
-    const cardValues = [1, 1, 2, 2, 3, 3, 4, 4];
-    addCardValue(shuffleArray(cardValues));
-    shuffleButton.classList.remove("reset");
-}
-
-function addCardValue(values) {
-    for (let i = 0; i < cards.length; i++) {
-        const card = cards[i];
-        card.dataset.value = values.pop();
-    }
-}
-function selectCard(card) {
-    if (card.classList.contains("solved")) {
-        return;
-    }
-    // const value = card.dataset.value;
-    card.classList.add("selected");
-    card.classList.remove("hidden");
-    card.innerText = card.dataset.value;
-    checkMatch();
-}
 
 function displayResult(result, MS = 5000) {
     resultDisplay.innerText = result;
@@ -71,13 +32,13 @@ function displayResult(result, MS = 5000) {
 
 // Initiation stuff
 displayResult("Welcome", 2000);
-shuffleCards();
+Card.shuffleCards();
 function gameFinished() {
     return cards.every((card) => card.classList == "solved");
 }
 
-function checkMatch() {
-    let selected = cards.filter((card) => card.classList.contains("selected"));
+export function checkMatch() {
+    let selected = Card.cards.filter((card) => card.classList.contains("selected"));
     if (selected.length >= 2) {
         if (selected[0].dataset.value == selected[1].dataset.value) {
             selected.forEach((card) => card.classList.add("solved"));
@@ -92,7 +53,7 @@ function checkMatch() {
                 }, 500);
             });
         }
-        cards.forEach((card) => card.classList.remove("selected"));
+        Card.cards.forEach((card) => card.classList.remove("selected"));
     }
     if (checkWin()) {
         shuffleButton.classList.add("reset");
@@ -100,7 +61,7 @@ function checkMatch() {
 }
 
 function checkWin() {
-    return cards.every((card) => card.classList.contains("solved"));
+    return Card.cards.every((card) => card.classList.contains("solved"));
 }
 
 function cheat() {
