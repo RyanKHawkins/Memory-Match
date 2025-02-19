@@ -39,7 +39,24 @@ function selectCard(card) {
 }
 
 
+function createCard(card) {
+    deck.push(card);
+}
+function createDeck(deckSize) {
+    let deck = [];
+    for (let i = 1; i <= deckSize; i++) {
+        deck.push(createCard(i))
+    }
+    return deck
+}
+function shuffleDeck(deck, shuffleCount = 1) {
+    for (let i = 0; i < deck.length; i++) {
+        deck = deck.sort((a, b) => Math.random() - 0.5)
+    }
+    return deck
+}
 
+/*--- Below is for future use ---*/
 
 // const canvas = document.querySelector("#card-canvas")
 
