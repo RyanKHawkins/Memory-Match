@@ -1,5 +1,6 @@
 import * as Script from "./script.js"
 export const cards = Array.from(document.querySelectorAll(".cards"));
+const cardTable = document.querySelector("#card-canvas");
 
 function shuffleArray(array, times = 2) {
     for (let i = 0; i < times; i++) {
@@ -18,7 +19,7 @@ export function shuffleCards() {
     cards.forEach((card) => (card.innerText = ""));
     const cardValues = [1, 1, 2, 2, 3, 3, 4, 4];
     addCardValue(shuffleArray(cardValues));
-    Script.shuffleButton.classList.remove("reset");
+    Script.dealButton.classList.remove("reset");
 }
 
 function addCardValue(values) {
@@ -27,7 +28,8 @@ function addCardValue(values) {
         card.dataset.value = values.pop();
     }
 }
-function selectCard(card) {
+function selectCard(card, deck) {
+    // Script.testLog(`Selected ${card}`)
     if (card.classList.contains("solved")) {
         return;
     }
@@ -35,51 +37,54 @@ function selectCard(card) {
     card.classList.add("selected");
     card.classList.remove("hidden");
     card.innerText = card.dataset.value;
-    Script.checkMatch();
+    Script.checkMatch(deck);
 }
 
 
 function createCard(card) {
-    deck.push(card);
+    let cardDiv = document.createElement("div");
+    cardDiv.dataset.value = card
+    cardDiv.classList = "cards hidden"
+    return cardDiv
 }
-function createDeck(deckSize) {
+
+export function createDeck(numOfCards) {
+    // Script.testLog("Creating deck...")
     let deck = [];
-    for (let i = 1; i <= deckSize; i++) {
-        deck.push(createCard(i))
+    for (let i = 1; i <= numOfCards; i++) {
+
+        deck.push(createCard(i));
+        deck.push(createCard(i));
     }
+    deck.forEach(card => {
+        card.addEventListener("click", (e) => {
+            selectCard(card, deck)
+        })
+    })
     return deck
 }
 function shuffleDeck(deck, shuffleCount = 1) {
+    // Script.testLog("Shuffling the deck...")
     for (let i = 0; i < deck.length; i++) {
         deck = deck.sort((a, b) => Math.random() - 0.5)
     }
     return deck
 }
 
+export function dealCards(deck) {
+    // Script.testLog("Dealing cards...")
+    cardTable.innerHTML = ""
+    deck = shuffleDeck(deck, 2);
+    for (let i = 0; i < deck.length; i++) {
+        deck[i].id = i
+        cardTable.append(deck[i])
+    }
+}
+
 /*--- Below is for future use ---*/
 
-// const canvas = document.querySelector("#card-canvas")
-
-// export let cards = [];
-
-// export function createDeck(gridSize = 4) {
-//     let deck = [];
-//     for (let i = 1; i <= gridSize; i++) {
-//         deck.push(i);
-//         deck.push(i);
-//     }
-//     return deck
-// }
-
-// function shuffleCards(deck) {
-//     for (let i = 0; i < deck.length; i++) {
-//         deck = deck.sort((a, b) => Math.random() - 0.5)
-//     }
-//     return deck
-// }
 
 // export function placeCards(deck) {
-//     console.log("deck:  ", deck);
 //     deck = shuffleCards(deck);
 //     for (let i = 0; i < deck.length; i++) {
 //         let cardDiv = document.createElement("div");
