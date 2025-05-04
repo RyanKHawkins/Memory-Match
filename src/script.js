@@ -8,6 +8,7 @@ import * as Card from "./cards.js"
 const resultDisplay = document.querySelector("#result");
 export const dealButton = document.querySelector("#deal-button");
 const sizeInput = document.querySelector("#size-input");
+const cardTable = document.querySelector("#card-canvas");
 
 export let isTesting = true;
 export function testLog(log) {
@@ -36,6 +37,7 @@ function clampValues(num, min, max) {
     return num
 }
 
+document.querySelector("h1").addEventListener("click", cheat);
 sizeInput.addEventListener("change", () => {
     sizeInput.value = clampValues(sizeInput.value, MIN_PAIRS, MAX_PAIRS);
     Card.dealCards(Card.createDeck(sizeInput.value))
@@ -50,6 +52,7 @@ dealButton.addEventListener("click", () => {
 
     sizeInput.value = 4;
 });
+
 resultDisplay.addEventListener("click", () => {
     resultDisplay.style.visibility = "hidden"
 });
