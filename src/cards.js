@@ -49,10 +49,10 @@ function createCard(card) {
     return cardDiv
 }
 
-export function createDeck(numOfCards) {
-    // Script.testLog("Creating deck...")
+export function createDeck(numOfPairs) {
+    Script.testLog("Creating deck...");
     let deck = [];
-    for (let i = 1; i <= numOfCards; i++) {
+    for (let i = 1; i <= numOfPairs; i++) {
 
         deck.push(createCard(i));
         deck.push(createCard(i));
