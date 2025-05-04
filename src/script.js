@@ -48,9 +48,6 @@ window.addEventListener("load", () => {
 })
 dealButton.addEventListener("click", () => {
     Card.dealCards(Card.createDeck(sizeInput.value))
-    //todo: resize table
-
-    sizeInput.value = 4;
 });
 
 resultDisplay.addEventListener("click", () => {
@@ -69,9 +66,6 @@ function displayResult(result, MS = 5000) {
 
 // Initiation stuff
 displayResult("Welcome", 2000);
-function gameFinished() {
-    return cards.every((card) => card.classList == "solved");
-}
 
 export function checkMatch(deck) {
     console.log("deck:  ", deck)
