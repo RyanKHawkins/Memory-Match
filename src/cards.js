@@ -72,7 +72,7 @@ function shuffleDeck(deck, shuffleCount = 1) {
 }
 
 export function dealCards(deck) {
-    // Script.testLog("Dealing cards...")
+    Script.buildGrid(deck.length / 2)
     cardTable.innerHTML = ""
     deck = shuffleDeck(deck, 2);
     for (let i = 0; i < deck.length; i++) {

@@ -16,6 +16,20 @@ export function testLog(log) {
     }
 }
 
+const MIN_PAIRS = 3;
+const MAX_PAIRS = 25;
+
+function setOptions(min, max) {
+    sizeInput.innerHTML = "";
+    for (let i = min; i <= max; i++) {
+        if (isAcceptableNumOfPairs(i)) {
+            let option = document.createElement("option");
+            option.textContent = i;
+            sizeInput.append(option);
+        }
+    } 
+}
+
 function clampValues(num, min, max) {
     num = num < min ? min : num;
     num = num > max ? max : num;
@@ -23,10 +37,12 @@ function clampValues(num, min, max) {
 }
 
 sizeInput.addEventListener("change", () => {
-    sizeInput.value = clampValues(sizeInput.value, 4, 25)
+    sizeInput.value = clampValues(sizeInput.value, MIN_PAIRS, MAX_PAIRS);
+    Card.dealCards(Card.createDeck(sizeInput.value))
 })
 window.addEventListener("load", () => {
-    Card.dealCards(Card.createDeck(4))
+    setOptions(MIN_PAIRS, MAX_PAIRS);
+    Card.dealCards(Card.createDeck(sizeInput.value));
 })
 dealButton.addEventListener("click", () => {
     Card.dealCards(Card.createDeck(sizeInput.value))
@@ -87,4 +103,58 @@ function cheat() {
     console.log(cards.map((card) => card.dataset.value));
     setTimeout(() => console.clear(), 5000);
 }
-document.querySelector("h1").addEventListener("click", cheat);
+
+function getSimilarRatio(totalCards) {
+    let ratio = [];
+
+    // let max = Math.ceil(totalCards / 2);
+    // let min = totalCards - max;
+
+    console.log(`ratio:  ${ratio}`)
+    return ratio
+}
+
+
+console.log("getSimilarRatio(6)", getSimilarRatio(6)) // [3, 2]
+console.log("getSimilarRatio(20)", getSimilarRatio(20)) // [5, 4]
+console.log("getSimilarRatio(16)", getSimilarRatio(16)) // [4, 4]
+console.log("getSimilarRatio(8)", getSimilarRatio(8)) // [4, 2]
+console.log("getSimilarRatio(12)", getSimilarRatio(12)) // [4, 3]
+console.log("getSimilarRatio(24)", getSimilarRatio(24)) // [6, 4]
+
+function isAcceptableNumOfPairs(pairs) {
+    // Todo - also include check to keep the width or height under a maximum - 10??
+    return pairs * 2 % 2 == 0 || pairs % 2 == 0 || !Math.max(...getSimilarRatio(pairs * 2) > 10)
+}
+
+export function buildGrid(pairs) {
+    console.log(`pairs:  ${pairs}`)
+    console.log("building grid...");
+    let gridMatrix = [0, 0];
+
+    if (Number.isInteger(Math.sqrt(pairs * 2))) {
+        let squareRoot = Math.sqrt(pairs * 2)
+        gridMatrix = [squareRoot, squareRoot]
+    } else if (pairs == 10) {
+        gridMatrix = [5, 4];
+    } else {
+        let orientation, screenHeight, screenWidth;
+        
+        // TODO - Check screen orientation, match ratio
+        window.addEventListener("deviceorientation", (event) => {
+            screenHeight = event.target.screen.availHeight
+            screenWidth = event.target.screen.availWidth
+            console.log(`height: ${screenHeight}, width: ${screenWidth}`)
+        })
+        
+        gridMatrix = [Math.max(...getSimilarRatio(pairs * 2)), Math.min(...getSimilarRatio(pairs * 2))];
+        
+        
+    }
+    
+    console.log(`gridMatrix:  ${gridMatrix}`);
+    cardTable.style = `grid-template-columns: repeat(${gridMatrix[0]}, auto); grid-template-rows: repeat(${gridMatrix[1]}, auto)`
+    
+
+
+}
