@@ -10,6 +10,7 @@ const resultDisplay = document.querySelector("#result");
 export const dealButton = document.querySelector("#deal-button");
 const sizeInput = document.querySelector("#size-input");
 const cardTable = document.querySelector("#card-canvas");
+const INITIAL_PAIR_VALUE = 8;
 let pairsChecked = 0;
 
 
@@ -48,6 +49,7 @@ function setOptions() {
         option.textContent = pair;
         sizeInput.append(option)
     }
+    sizeInput.value = INITIAL_PAIR_VALUE;
 }
 
 function clampValues(num, min, max) {
