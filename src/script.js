@@ -52,12 +52,6 @@ function setOptions() {
     sizeInput.value = INITIAL_PAIR_VALUE;
 }
 
-function clampValues(num, min, max) {
-    num = num < min ? min : num;
-    num = num > max ? max : num;
-    return num
-}
-
 document.querySelector("h1").addEventListener("click", cheat);
 sizeInput.addEventListener("change", () => {
     Card.dealCards(Card.createDeck(sizeInput.value))
@@ -71,22 +65,8 @@ dealButton.addEventListener("click", () => {
     Card.dealCards(Card.createDeck(sizeInput.value))
 });
 
-resultDisplay.addEventListener("click", () => {
-    resultDisplay.style.visibility = "hidden"
-});
-
-
-
-function displayResult(result, MS = 5000) {
-    resultDisplay.innerText = result;
-    resultDisplay.style.visibility = "visible";
-    setTimeout(() => {
-        resultDisplay.style.visibility = "hidden";
-    }, MS);
-}
-
 // Initiation stuff
-displayResult("Welcome", 2000);
+Helper.displayResult("Welcome", 2000);
 
 export function checkMatch(deck) {
     console.log("deck:  ", deck)
@@ -95,7 +75,7 @@ export function checkMatch(deck) {
         if (selected[0].dataset.value == selected[1].dataset.value) {
             selected.forEach((card) => card.classList.add("solved"));
             const message = checkWin(deck) ? "You won!" : "Matched";
-            displayResult(message, 500);
+            Helper.displayResult(message, 500);
         } else {
             selected.forEach((card) => {
                 setTimeout(() => {
