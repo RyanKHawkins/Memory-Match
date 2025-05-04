@@ -4,7 +4,8 @@
     https://codepen.io/RyanKHawkins/pen/gOdRWrJ
 
 */
-import * as Card from "./cards.js"
+import * as Card from "./cards.js";
+import * as Helper from "./helper.js";
 const resultDisplay = document.querySelector("#result");
 export const dealButton = document.querySelector("#deal-button");
 const sizeInput = document.querySelector("#size-input");

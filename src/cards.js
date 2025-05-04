@@ -1,4 +1,5 @@
-import * as Script from "./script.js"
+import * as Script from "./script.js";
+import * as Helper from "./helper.js";
 export const cards = Array.from(document.querySelectorAll(".cards"));
 const cardTable = document.querySelector("#card-canvas");
 
@@ -15,8 +16,9 @@ function addCardValue(values) {
         card.dataset.value = values.pop();
     }
 }
+
 function selectCard(card, deck) {
-    // Script.testLog(`Selected ${card}`)
+    // Helper.testLog(`Selected ${card}`)
     if (card.classList.contains("solved")) {
         return;
     }
@@ -27,7 +29,6 @@ function selectCard(card, deck) {
     Script.checkMatch(deck);
 }
 
-
 function createCard(card) {
     let cardDiv = document.createElement("div");
     cardDiv.dataset.value = card
@@ -36,7 +37,7 @@ function createCard(card) {
 }
 
 export function createDeck(numOfPairs) {
-    Script.testLog("Creating deck...");
+    Helper.testLog("Creating deck...");
     let deck = [];
     for (let i = 1; i <= numOfPairs; i++) {
 
@@ -50,8 +51,9 @@ export function createDeck(numOfPairs) {
     })
     return deck
 }
+
 function shuffleDeck(deck, shuffleCount = 1) {
-    // Script.testLog("Shuffling the deck...")
+    // Helper.testLog("Shuffling the deck...")
     for (let i = 0; i < deck.length; i++) {
         deck = deck.sort((a, b) => Math.random() - 0.5)
     }
@@ -59,7 +61,7 @@ function shuffleDeck(deck, shuffleCount = 1) {
 }
 
 export function dealCards(deck) {
-    // console.log(deck)
+    // Helper.testLog("deck: ", deck);
     Script.buildMatrix(deck.length / 2);
     cardTable.innerHTML = ""
     deck = shuffleDeck(deck, 2);
