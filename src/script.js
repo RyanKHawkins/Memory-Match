@@ -31,15 +31,7 @@ const pairToMatrix = {
 
 function setOptions() {
     sizeInput.innerHTML = "";
-    // for (let i = min; i <= max; i++) {
-    //     if (isAcceptableNumOfPairs(i)) {
-    //         let option = document.createElement("option");
-    //         option.textContent = i;
-    //         sizeInput.append(option);
-    //     }
-    // } 
-
-    for (let pair of Object.keys(pairToMatrix)) {
+    for (let pair of Object.keys(cardPairsMatrix)) {
         console.log(`pair: ${pair}`)
         let option = document.createElement("option");
         option.textContent = pair;
@@ -142,28 +134,6 @@ function cheat() {
 // }
 
 
-// console.log("getSimilarRatio(6)", getSimilarRatio(6)) // [3, 2]
-// console.log("getSimilarRatio(20)", getSimilarRatio(20)) // [5, 4]
-// console.log("getSimilarRatio(16)", getSimilarRatio(16)) // [4, 4]
-// console.log("getSimilarRatio(8)", getSimilarRatio(8)) // [4, 2]
-// console.log("getSimilarRatio(12)", getSimilarRatio(12)) // [4, 3]
-// console.log("getSimilarRatio(24)", getSimilarRatio(24)) // [6, 4]
-
-/**
- * 
- * 2 pairs -> 4 cards -> [2, 2]
- * 3 pairs -> 6 cards -> [3, 2]
- * 4 pairs -> 8 cards -> [4, 2]
- * 6 pairs -> 12 cards -> [4, 3]
- * 8 pairs -> 16 cards -> [4, 4]
- * 10 pairs -> 20 cards -> [5, 4]
- * 12 pairs -> 24 cards -> [6, 4]
- * 15 pairs -> 30 cards -> [6, 5]
- * 18 pairs -> 36 cards -> [6, 6]
- * 20 pairs -> 40 cards -> [8, 5]?? too much separation??
- * 21 pairs -> 42 cards -> [7, 6]
- */
-
 
 export function buildMatrix(pairs) {
     console.log(`buildMatrix(${pairs})`)
@@ -171,11 +141,6 @@ export function buildMatrix(pairs) {
     cardTable.style = `grid-template-columns: repeat(${pairToMatrix[pairs][0]}, auto); grid-template-rows: repeat(${pairToMatrix[pairs[1]]}, auto)`
 }
 
-
-// function isAcceptableNumOfPairs(pairs) {
-//     // Todo - also include check to keep the width or height under a maximum - 10??
-//     return pairs * 2 % 2 == 0 || pairs % 2 == 0 || !Math.max(...getSimilarRatio(pairs * 2) > 5)
-// }
 
 // export function buildGrid(pairs) {
 //     console.log(`pairs:  ${pairs}`)
@@ -189,12 +154,6 @@ export function buildMatrix(pairs) {
 //         let orientation, screenHeight, screenWidth;
         
 //         // TODO - Check screen orientation, match ratio
-//         window.addEventListener("deviceorientation", (event) => {
-//             screenHeight = event.target.screen.availHeight
-//             screenWidth = event.target.screen.availWidth
-//             console.log(`height: ${screenHeight}, width: ${screenWidth}`)
-//         })
-        
 //         // gridMatrix = [Math.max(...getSimilarRatio(pairs * 2)), Math.min(...getSimilarRatio(pairs * 2))];
         
         

@@ -9,20 +9,6 @@ function shuffleArray(array, times = 2) {
     return array
 }
 
-// export function shuffleCards() {
-//     cards.forEach((card) =>
-//         card.addEventListener("click", (e) => {
-//             selectCard(e.target);
-//         })
-//     );
-//     cards.forEach((card) => (card.classList = "cards hidden"));
-//     cards.forEach((card) => (card.innerText = ""));
-//     // const cardValues = [1, 1, 2, 2, 3, 3, 4, 4];
-//     const cardValues = 
-//     addCardValue(shuffleArray(cardValues));
-//     Script.dealButton.classList.remove("reset");
-// }
-
 function addCardValue(values) {
     for (let i = 0; i < cards.length; i++) {
         const card = cards[i];
