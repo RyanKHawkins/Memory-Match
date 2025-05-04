@@ -17,18 +17,34 @@ export function testLog(log) {
     }
 }
 
-const MIN_PAIRS = 3;
-const MAX_PAIRS = 25;
+const pairToMatrix = {
+    3: [3, 2],
+    4: [4, 2],
+    6: [4, 3],
+    8: [4, 4],
+    10: [5, 4],
+    12: [6, 4],
+    15: [6, 5],
+    18: [6, 6],
 
-function setOptions(min, max) {
+}
+
+function setOptions() {
     sizeInput.innerHTML = "";
-    for (let i = min; i <= max; i++) {
-        if (isAcceptableNumOfPairs(i)) {
-            let option = document.createElement("option");
-            option.textContent = i;
-            sizeInput.append(option);
-        }
-    } 
+    // for (let i = min; i <= max; i++) {
+    //     if (isAcceptableNumOfPairs(i)) {
+    //         let option = document.createElement("option");
+    //         option.textContent = i;
+    //         sizeInput.append(option);
+    //     }
+    // } 
+
+    for (let pair of Object.keys(pairToMatrix)) {
+        console.log(`pair: ${pair}`)
+        let option = document.createElement("option");
+        option.textContent = pair;
+        sizeInput.append(option)
+    }
 }
 
 function clampValues(num, min, max) {
@@ -39,11 +55,11 @@ function clampValues(num, min, max) {
 
 document.querySelector("h1").addEventListener("click", cheat);
 sizeInput.addEventListener("change", () => {
-    sizeInput.value = clampValues(sizeInput.value, MIN_PAIRS, MAX_PAIRS);
     Card.dealCards(Card.createDeck(sizeInput.value))
 })
 window.addEventListener("load", () => {
-    setOptions(MIN_PAIRS, MAX_PAIRS);
+    // setOptions(MIN_PAIRS, MAX_PAIRS);
+    setOptions();
     Card.dealCards(Card.createDeck(sizeInput.value));
 })
 dealButton.addEventListener("click", () => {
@@ -101,57 +117,92 @@ function cheat() {
     setTimeout(() => console.clear(), 5000);
 }
 
-function getSimilarRatio(totalCards) {
-    let ratio = [];
+// function getSimilarRatio(totalCards) {
+//     let ratio = [];
 
-    // let max = Math.ceil(totalCards / 2);
-    // let min = totalCards - max;
+//     // let max = Math.ceil(totalCards / 2);
+//     // let min = totalCards - max;
 
-    console.log(`ratio:  ${ratio}`)
-    return ratio
+//     if (Number.isInteger(Math.sqrt(totalCards))) {
+//         let squareRoot = Math.sqrt(totalCards)
+
+//         ratio = [squareRoot, squareRoot]
+//     } else {
+//         let large = Math.ceil(totalCards / 2);
+//         let small = totalCards - large;
+//         while (large * small != totalCards) {
+//             large++;
+//             small = totalCards - large;
+//         }
+//         ratio = [large, small]
+//     }
+
+//     console.log(`ratio:  ${ratio}`)
+//     return ratio
+// }
+
+
+// console.log("getSimilarRatio(6)", getSimilarRatio(6)) // [3, 2]
+// console.log("getSimilarRatio(20)", getSimilarRatio(20)) // [5, 4]
+// console.log("getSimilarRatio(16)", getSimilarRatio(16)) // [4, 4]
+// console.log("getSimilarRatio(8)", getSimilarRatio(8)) // [4, 2]
+// console.log("getSimilarRatio(12)", getSimilarRatio(12)) // [4, 3]
+// console.log("getSimilarRatio(24)", getSimilarRatio(24)) // [6, 4]
+
+/**
+ * 
+ * 2 pairs -> 4 cards -> [2, 2]
+ * 3 pairs -> 6 cards -> [3, 2]
+ * 4 pairs -> 8 cards -> [4, 2]
+ * 6 pairs -> 12 cards -> [4, 3]
+ * 8 pairs -> 16 cards -> [4, 4]
+ * 10 pairs -> 20 cards -> [5, 4]
+ * 12 pairs -> 24 cards -> [6, 4]
+ * 15 pairs -> 30 cards -> [6, 5]
+ * 18 pairs -> 36 cards -> [6, 6]
+ * 20 pairs -> 40 cards -> [8, 5]?? too much separation??
+ * 21 pairs -> 42 cards -> [7, 6]
+ */
+
+
+export function buildMatrix(pairs) {
+    console.log(`buildMatrix(${pairs})`)
+    console.log(pairToMatrix[pairs][0])
+    cardTable.style = `grid-template-columns: repeat(${pairToMatrix[pairs][0]}, auto); grid-template-rows: repeat(${pairToMatrix[pairs[1]]}, auto)`
 }
 
 
-console.log("getSimilarRatio(6)", getSimilarRatio(6)) // [3, 2]
-console.log("getSimilarRatio(20)", getSimilarRatio(20)) // [5, 4]
-console.log("getSimilarRatio(16)", getSimilarRatio(16)) // [4, 4]
-console.log("getSimilarRatio(8)", getSimilarRatio(8)) // [4, 2]
-console.log("getSimilarRatio(12)", getSimilarRatio(12)) // [4, 3]
-console.log("getSimilarRatio(24)", getSimilarRatio(24)) // [6, 4]
+// function isAcceptableNumOfPairs(pairs) {
+//     // Todo - also include check to keep the width or height under a maximum - 10??
+//     return pairs * 2 % 2 == 0 || pairs % 2 == 0 || !Math.max(...getSimilarRatio(pairs * 2) > 5)
+// }
 
-function isAcceptableNumOfPairs(pairs) {
-    // Todo - also include check to keep the width or height under a maximum - 10??
-    return pairs * 2 % 2 == 0 || pairs % 2 == 0 || !Math.max(...getSimilarRatio(pairs * 2) > 10)
-}
+// export function buildGrid(pairs) {
+//     console.log(`pairs:  ${pairs}`)
+//     console.log("building grid...");
+//     let gridMatrix = [0, 0];
 
-export function buildGrid(pairs) {
-    console.log(`pairs:  ${pairs}`)
-    console.log("building grid...");
-    let gridMatrix = [0, 0];
-
-    if (Number.isInteger(Math.sqrt(pairs * 2))) {
-        let squareRoot = Math.sqrt(pairs * 2)
-        gridMatrix = [squareRoot, squareRoot]
-    } else if (pairs == 10) {
-        gridMatrix = [5, 4];
-    } else {
-        let orientation, screenHeight, screenWidth;
+//     if (Number.isInteger(Math.sqrt(pairs * 2))) {
+//         let squareRoot = Math.sqrt(pairs * 2)
+//         gridMatrix = [squareRoot, squareRoot]
+//     } else {
+//         let orientation, screenHeight, screenWidth;
         
-        // TODO - Check screen orientation, match ratio
-        window.addEventListener("deviceorientation", (event) => {
-            screenHeight = event.target.screen.availHeight
-            screenWidth = event.target.screen.availWidth
-            console.log(`height: ${screenHeight}, width: ${screenWidth}`)
-        })
+//         // TODO - Check screen orientation, match ratio
+//         window.addEventListener("deviceorientation", (event) => {
+//             screenHeight = event.target.screen.availHeight
+//             screenWidth = event.target.screen.availWidth
+//             console.log(`height: ${screenHeight}, width: ${screenWidth}`)
+//         })
         
-        gridMatrix = [Math.max(...getSimilarRatio(pairs * 2)), Math.min(...getSimilarRatio(pairs * 2))];
+//         // gridMatrix = [Math.max(...getSimilarRatio(pairs * 2)), Math.min(...getSimilarRatio(pairs * 2))];
         
         
-    }
+//     }
     
-    console.log(`gridMatrix:  ${gridMatrix}`);
-    cardTable.style = `grid-template-columns: repeat(${gridMatrix[0]}, auto); grid-template-rows: repeat(${gridMatrix[1]}, auto)`
+//     console.log(`gridMatrix:  ${gridMatrix}`);
+//     cardTable.style = `grid-template-columns: repeat(${gridMatrix[0]}, auto); grid-template-rows: repeat(${gridMatrix[1]}, auto)`
     
 
 
-}
+// }
