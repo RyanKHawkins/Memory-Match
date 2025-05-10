@@ -71,6 +71,7 @@ Helper.displayResult("Welcome", 2000);
 
 export function checkMatch(deck) {
     console.log("deck:  ", deck)
+    attempts++;
     let selected = deck.filter((card) => card.classList.contains("selected"));
     if (selected.length >= 2) {
         if (selected[0].dataset.value == selected[1].dataset.value) {
