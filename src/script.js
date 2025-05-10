@@ -13,22 +13,6 @@ const cardTable = document.querySelector("#card-canvas");
 const INITIAL_PAIR_VALUE = 8;
 export let attempts = 0;
 
-
-/**
- * 
- * 2 pairs -> 4 cards -> [2, 2]
- * 3 pairs -> 6 cards -> [3, 2]
- * 4 pairs -> 8 cards -> [4, 2]
- * 6 pairs -> 12 cards -> [4, 3]
- * 8 pairs -> 16 cards -> [4, 4]
- * 10 pairs -> 20 cards -> [5, 4]
- * 12 pairs -> 24 cards -> [6, 4]
- * 15 pairs -> 30 cards -> [6, 5]
- * 18 pairs -> 36 cards -> [6, 6]
- * 20 pairs -> 40 cards -> [8, 5]?? too much separation??
- * 21 pairs -> 42 cards -> [7, 6]
- */
-
 const cardPairsMatrix = {
     3: [3, 2],
     4: [4, 2],
@@ -57,7 +41,6 @@ sizeInput.addEventListener("change", () => {
     Card.dealCards(Card.createDeck(sizeInput.value))
 })
 window.addEventListener("load", () => {
-    // setOptions(MIN_PAIRS, MAX_PAIRS);
     setOptions();
     Card.dealCards(Card.createDeck(sizeInput.value));
 })
@@ -104,59 +87,8 @@ function cheat() {
     setTimeout(() => console.clear(), 5000);
 }
 
-// function getSimilarRatio(totalCards) {
-//     let ratio = [];
-
-//     // let max = Math.ceil(totalCards / 2);
-//     // let min = totalCards - max;
-
-//     if (Number.isInteger(Math.sqrt(totalCards))) {
-//         let squareRoot = Math.sqrt(totalCards)
-
-//         ratio = [squareRoot, squareRoot]
-//     } else {
-//         let large = Math.ceil(totalCards / 2);
-//         let small = totalCards - large;
-//         while (large * small != totalCards) {
-//             large++;
-//             small = totalCards - large;
-//         }
-//         ratio = [large, small]
-//     }
-
-//     console.log(`ratio:  ${ratio}`)
-//     return ratio
-// }
-
-
-
 export function buildMatrix(pairs) {
     console.log(`buildMatrix(${pairs})`)
     console.log(cardPairsMatrix[pairs][0])
     cardTable.style = `grid-template-columns: repeat(${cardPairsMatrix[pairs][0]}, auto); grid-template-rows: repeat(${cardPairsMatrix[pairs[1]]}, auto)`
 }
-
-
-// export function buildGrid(pairs) {
-//     console.log(`pairs:  ${pairs}`)
-//     console.log("building grid...");
-//     let gridMatrix = [0, 0];
-
-//     if (Number.isInteger(Math.sqrt(pairs * 2))) {
-//         let squareRoot = Math.sqrt(pairs * 2)
-//         gridMatrix = [squareRoot, squareRoot]
-//     } else {
-//         let orientation, screenHeight, screenWidth;
-        
-//         // TODO - Check screen orientation, match ratio
-//         // gridMatrix = [Math.max(...getSimilarRatio(pairs * 2)), Math.min(...getSimilarRatio(pairs * 2))];
-        
-        
-//     }
-    
-//     console.log(`gridMatrix:  ${gridMatrix}`);
-//     cardTable.style = `grid-template-columns: repeat(${gridMatrix[0]}, auto); grid-template-rows: repeat(${gridMatrix[1]}, auto)`
-    
-
-
-// }

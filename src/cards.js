@@ -70,30 +70,3 @@ export function dealCards(deck) {
         cardTable.append(deck[i])
     }
 }
-
-/*--- Below is for future use ---*/
-
-
-// export function placeCards(deck) {
-//     deck = shuffleCards(deck);
-//     for (let i = 0; i < deck.length; i++) {
-//         let cardDiv = document.createElement("div");
-//         cardDiv.classList = "cards hidden";
-//         cardDiv.innerText = "";
-//         cardDiv.dataset.value = deck[i]
-//         cardDiv.addEventListener("click", (e) => {
-//             Script.selectCard(e.target)
-//         });
-
-//         canvas.append(cardDiv)         
-//     }
-// }
-
-// export function selectCard(card) {
-//     if (card.classList.contains("solved")) {
-//         return
-//     }
-//     card.classList.add("selected");
-//     card.classList.remove("hidden");
-//     card.innertext = card.dataset.value
-// }
