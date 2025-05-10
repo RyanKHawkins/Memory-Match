@@ -36,7 +36,6 @@ function setOptions() {
     sizeInput.value = INITIAL_PAIR_VALUE;
 }
 
-document.querySelector("h1").addEventListener("click", cheat);
 sizeInput.addEventListener("change", () => {
     Card.dealCards(Card.createDeck(sizeInput.value))
 })
@@ -79,12 +78,6 @@ export function checkMatch(deck) {
 
 function checkWin(deck) {
     return deck.every((card) => card.classList.contains("solved"));
-}
-
-function cheat() {
-    let cards = Array.from(document.querySelectorAll(".cards"));
-    console.log(cards.map((card) => card.dataset.value));
-    setTimeout(() => console.clear(), 5000);
 }
 
 export function buildMatrix(pairs) {

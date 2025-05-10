@@ -1,4 +1,5 @@
 const resultDisplay = document.querySelector("#result");
+document.querySelector("h1").addEventListener("click", cheat);
 
 resultDisplay.addEventListener("click", () => {
     resultDisplay.style.visibility = "hidden"
@@ -35,4 +36,10 @@ export function clampValues(num, min, max) {
     num = num < min ? min : num;
     num = num > max ? max : num;
     return num
+}
+
+function cheat() {
+    let cards = Array.from(document.querySelectorAll(".cards"));
+    console.log(cards.map((card) => card.dataset.value));
+    setTimeout(() => console.clear(), 5000);
 }
