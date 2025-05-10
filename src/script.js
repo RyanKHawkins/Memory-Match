@@ -11,7 +11,7 @@ export const dealButton = document.querySelector("#deal-button");
 const sizeInput = document.querySelector("#size-input");
 const cardTable = document.querySelector("#card-canvas");
 const INITIAL_PAIR_VALUE = 8;
-let pairsChecked = 0;
+export let attempts = 0;
 
 
 /**
@@ -62,7 +62,8 @@ window.addEventListener("load", () => {
     Card.dealCards(Card.createDeck(sizeInput.value));
 })
 dealButton.addEventListener("click", () => {
-    Card.dealCards(Card.createDeck(sizeInput.value))
+    Card.dealCards(Card.createDeck(sizeInput.value));
+    attempts = 0;
 });
 
 // Initiation stuff
