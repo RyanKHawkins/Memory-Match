@@ -80,7 +80,5 @@ function checkWin(deck) {
 }
 
 export function buildMatrix(pairs) {
-    console.log(`buildMatrix(${pairs})`)
-    console.log(cardPairsMatrix[pairs][0])
     cardTable.style = `grid-template-columns: repeat(${cardPairsMatrix[pairs][0]}, auto); grid-template-rows: repeat(${cardPairsMatrix[pairs[1]]}, auto)`
 }
