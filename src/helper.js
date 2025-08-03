@@ -25,12 +25,25 @@ export function getOrientation() {
     window.addEventListener("deviceorientation", (event) => {
         screenHeight = event.target.screen.availHeight
         screenWidth = event.target.screen.availWidth
-        console.log(`height: ${screenHeight}, width: ${screenWidth}`)
+        testLog(`height: ${screenHeight}, width: ${screenWidth}`)
     })
 
     return screenHeight > screenWidth ? "portrait" : "landscape"
 
 }
+
+export function getScreenSize() {
+    const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    return { width, height }
+}
+
+export function handleResize() {
+    const screenSize = getScreenSize();
+    testLog(screenSize);
+}
+
+window.addEventListener("resize", handleResize);
 
 export function clampValues(num, min, max) {
     num = num < min ? min : num;
