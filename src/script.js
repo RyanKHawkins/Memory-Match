@@ -28,7 +28,6 @@ const cardPairsMatrix = {
 function setOptions() {
     sizeInput.innerHTML = "";
     for (let pair of Object.keys(cardPairsMatrix)) {
-        console.log(`pair: ${pair}`)
         let option = document.createElement("option");
         option.textContent = pair;
         sizeInput.append(option)
@@ -42,6 +41,7 @@ sizeInput.addEventListener("change", () => {
 window.addEventListener("load", () => {
     setOptions();
     Card.dealCards(Card.createDeck(sizeInput.value));
+    Helper.getOrientation();
 })
 dealButton.addEventListener("click", () => {
     Card.dealCards(Card.createDeck(sizeInput.value));
@@ -52,7 +52,6 @@ dealButton.addEventListener("click", () => {
 Helper.displayResult("Welcome", 2000);
 
 export function checkMatch(deck) {
-    console.log("deck:  ", deck)
     attempts++;
     let selected = deck.filter((card) => card.classList.contains("selected"));
     if (selected.length >= 2) {
