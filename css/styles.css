@@ -70,8 +70,6 @@ h1 {
     cursor: pointer;
 }
 
-.selected {}
-
 .solved {
     background: var(--dark-blue);
     color: var(--light-blue);
@@ -96,6 +94,10 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.buttons:active {
+    transform: scale(.975)
 }
 
 #result {
