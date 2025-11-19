@@ -54,7 +54,7 @@ export function createDeck(numOfPairs) {
 
 function shuffleDeck(deck, shuffleCount = 1) {
     // Helper.testLog("Shuffling the deck...")
-    for (let i = 0; i < deck.length; i++) {
+    for (let i = 0; i < shuffleCount; i++) {
         deck = deck.sort((a, b) => Math.random() - 0.5)
     }
     return deck
